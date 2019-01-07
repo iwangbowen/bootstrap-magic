@@ -9,8 +9,8 @@
   />
   <link rel="shortcut icon" href="../bootstrap-magic.ico" type="image/x-icon">
   <link rel="stylesheet" href="./css/docs.bootstrap.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.30.0/codemirror.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.30.0/addon/hint/show-hint.min.css">
+  <link rel="stylesheet" href="./lib/codemirror/5.30.0/codemirror.min.css">
+  <link rel="stylesheet" href="./lib/codemirror/5.30.0/addon/hint/show-hint.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/css/bootstrap-colorpicker.min.css">
   <link rel="stylesheet" href="../dist/main.css">
   <style>
@@ -20,7 +20,7 @@
   </style>
 
   <script src="lib/angular/angular-loader.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/script.js/2.5.8/script.min.js"></script>
+  <script src="./lib/script.js/2.5.8/script.min.js"></script>
   <script>
     var dev = true;
     var ext = (dev) ? '?now=' + new Date().getTime() : '';
@@ -57,19 +57,18 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-codemirror/0.3.0/ui-codemirror.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.30.0/codemirror.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.30.0/mode/xml/xml.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.30.0/mode/htmlmixed/htmlmixed.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.30.0/mode/javascript/javascript.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/css/css.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.30.0/addon/hint/html-hint.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.30.0/addon/hint/css-hint.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.30.0/addon/hint/xml-hint.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.30.0/addon/hint/show-hint.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.30.0/addon/hint/javascript-hint.min.js"></script>
+  <script src="./lib/codemirror/5.30.0/codemirror.min.js"></script>
+  <script src="./lib/codemirror/5.30.0/mode/xml/xml.min.js"></script>
+  <script src="./lib/codemirror/5.30.0/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="./lib/codemirror/5.30.0/mode/javascript/javascript.min.js"></script>
+  <script src="./lib/codemirror/5.31.0/mode/css/css.min.js"></script>
+  <script src="./lib/codemirror/5.30.0/addon/hint/html-hint.min.js"></script>
+  <script src="./lib/codemirror/5.30.0/addon/hint/css-hint.min.js"></script>
+  <script src="./lib/codemirror/5.30.0/addon/hint/xml-hint.min.js"></script>
+  <script src="./lib/codemirror/5.30.0/addon/hint/show-hint.min.js"></script>
+  <script src="./lib/codemirror/5.30.0/addon/hint/javascript-hint.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.7.4/beautify-html.min.js"></script>
 
-  <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
   <title>Bootstrap Magic : Generate simply your own bootstrap 3.1 theme </title>
   <meta name="description" content="Awesome features like contextual typeahead and colorpicker to make smooth bootstrap 3.1 theme faster."
   />
@@ -101,46 +100,6 @@
   <div ng-view></div>
 
   <div id="fb-root"></div>
-
-  <script type="text/javascript">
-
-    setTimeout(function() {
-      $('body').addClass('active');
-      $('#orson-alert').addClass('active');
-
-      $('#orson-alert-close').click(function(){
-        $('body').removeClass('active');
-      })
-    }, 10000);
-
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-37710723-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function () {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    (function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=239545502808545";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-    window.___gcfg = { lang: 'fr' };
-    (function () {
-      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-      po.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-    })();
-    !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");
-    var google_conversion_id = 977336662;
-    var google_custom_params = window.google_tag_params;
-    var google_remarketing_only = true;
-  </script>
 
   <script>
     WebFont.load({

@@ -4,7 +4,11 @@
   "version": "4.0.0",
   "description": "Generate your Bootstrap 4.0 Theme with Bootstrap Magic",
   "license": "MIT",
-  "keywords": ["bootstrap4", "bootstrap-themes-generator", "bootstrap-magic"],
+  "keywords": [
+    "bootstrap4",
+    "bootstrap-themes-generator",
+    "bootstrap-magic"
+  ],
   "homepage": "https://pikock.github.io/bootstrap-magic/",
   "engines": {
     "node": ">=6"
@@ -49,5 +53,6 @@
     "webpack-dev-server": "^2.5.1",
     "nodemon": "^1.12.1",
     "dotenv-webpack": "^1.5.4"
-  }
+  },
+  "dependencies": {}
 }

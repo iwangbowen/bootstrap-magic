@@ -130,7 +130,7 @@ window.angular.module('data', []).service('data', [
           '%23'
         )
         !default;
-      
+
       $custom-select-indicator: str-replace(
           url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='#{$custom-select-indicator-color}' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E"),
           '#',
@@ -1405,13 +1405,11 @@ window.angular.module('apSass', []).factory('apSass', [
     }
 
     function saveSassVar(data) {
-      var rightNow = new Date()
-      var res = rightNow.toISOString().slice(0, 10)
       window.URL = window.URL || window.webkitURL
       var blob = new Blob([data], { type: 'text/css' })
       var link = document.createElement('a')
       link.href = window.URL.createObjectURL(blob)
-      link.download = 'custom-variables-bootstrap-' + res + '.scss'
+      link.download = 'custom-variables-' + Date.now() + '.scss'
       link.click()
     }
 
@@ -1420,13 +1418,11 @@ window.angular.module('apSass', []).factory('apSass', [
         sass.compile("@import 'functions'; @import 'toAddScss';" + bootstrapContent, function(
           result
         ) {
-          var rightNow = new Date()
-          var res = rightNow.toISOString().slice(0, 10)
           window.URL = window.URL || window.webkitURL
           var blob = new Blob([result.text], { type: 'text/css' })
           var link = document.createElement('a')
           link.href = window.URL.createObjectURL(blob)
-          link.download = 'custom-css-bootstrap-magic-' + res + '.css'
+          link.download = 'custom-css-' + Date.now() + '.css'
           link.click()
         })
       })
