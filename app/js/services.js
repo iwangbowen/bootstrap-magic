@@ -1111,7 +1111,7 @@ window.angular.module('apSass', []).factory('apSass', [
   'data',
   '$q',
   '$sce',
-  function($http, data, $q, $sce) {
+  function ($http, data, $q, $sce) {
     window.Sass.setWorkerUrl('../app/lib/sass/sass.worker.js')
     var sass = new window.Sass()
     sass.options({
@@ -1146,7 +1146,9 @@ window.angular.module('apSass', []).factory('apSass', [
       getVariablesToString: getVariablesToString,
       saveSassVar: saveSassVar,
       saveCSS: saveCSS,
-      applySass: applySass
+      applySass: applySass,
+      saveSassVarToServer: saveSassVarToServer,
+      saveCSSToServer, saveCSSToServer
     }
 
     // public function
@@ -1154,9 +1156,9 @@ window.angular.module('apSass', []).factory('apSass', [
     function resolveFonts(fonts) {
       window.fonts = fonts
       window.data = data
-      var resolve = fonts.reduce(function(memo, font) {
+      var resolve = fonts.reduce(function (memo, font) {
         var splits = font.split(',')
-        splits.forEach(function(split) {
+        splits.forEach(function (split) {
           split = split.trim()
           if (data.fontKeys.indexOf(split) !== -1) {
             memo.push(split)
@@ -1185,34 +1187,34 @@ window.angular.module('apSass', []).factory('apSass', [
     }
 
     function applySass(scope) {
-      return $q(function(resolve, reject) {
+      return $q(function (resolve, reject) {
         var stringvar = getVariablesToString(scope)
         var scss = stringvar + data.cssToAdd
         var vars = getVariables(scope)
 
         if (first) {
           preloadFile(data.bootstrapFiles)
-            .then(function() {
+            .then(function () {
               compileSass(scss)
-                .then(function(result) {
+                .then(function (result) {
                   resolve(result)
                   resolveFonts(vars.fonts)
                   first = false
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                   reject(error)
                 })
             })
-            .catch(function(error) {
+            .catch(function (error) {
               reject(error)
             })
         } else {
           compileSass(scss)
-            .then(function(result) {
+            .then(function (result) {
               resolve(result)
               resolveFonts(vars.fonts)
             })
-            .catch(function(error) {
+            .catch(function (error) {
               reject(error)
             })
         }
@@ -1220,13 +1222,13 @@ window.angular.module('apSass', []).factory('apSass', [
     }
 
     function compileSass(scss) {
-      return $q(function(resolve, reject) {
+      return $q(function (resolve, reject) {
         try {
           var t0 = performance.now()
           sass.writeFile('toAddScss.scss', scss)
           sass.compile(
             "@import 'functions'; @import 'toAddScss';" + service.bootstrapContent,
-            function(result) {
+            function (result) {
               console.log(result)
               if (result.status === 0) {
                 var t1 = performance.now()
@@ -1245,10 +1247,10 @@ window.angular.module('apSass', []).factory('apSass', [
     }
 
     function preloadFile(files) {
-      return $q(function(resolve, reject) {
+      return $q(function (resolve, reject) {
         try {
           console.log('Preload File', base, directory, files)
-          sass.preloadFiles(base, directory, files, function() {
+          sass.preloadFiles(base, directory, files, function () {
             console.log('Reading bootstrap file')
             sass.readFile('bootstrap.scss', function callback(bootstrapContent) {
               service.bootstrapContent = bootstrapContent
@@ -1275,13 +1277,13 @@ window.angular.module('apSass', []).factory('apSass', [
         commentMulti: /\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\//
       }
 
-      var parse = function(data) {
+      var parse = function (data) {
         if (regex.commentMulti.test(data)) {
           data = data.replace(regex.commentMulti, '')
         }
         var variables = []
         var lines = data.split(/\r\n|\r|\n/)
-        lines.forEach(function(line) {
+        lines.forEach(function (line) {
           if (regex.comment.test(line)) {
           } else if (regex.emptyLine.test(line)) {
           } else if (regex.variable.test(line)) {
@@ -1377,13 +1379,13 @@ window.angular.module('apSass', []).factory('apSass', [
       var url = "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBb_pLbXGeesG8wE32FMtywG4Vsfq6Uk_8"
       var trustedUrl = $sce.trustAsResourceUrl(url);
 
-      $http.jsonp(trustedUrl, {jsonpCallbackParam: 'callback'})
-          .then(function(response){
-            var data = response.data
-              for (var i = 0; i < data.items.length; i++) {
-                  keys.push(data.items[i].family)
-                }
-          });
+      $http.jsonp(trustedUrl, { jsonpCallbackParam: 'callback' })
+        .then(function (response) {
+          var data = response.data
+          for (var i = 0; i < data.items.length; i++) {
+            keys.push(data.items[i].family)
+          }
+        });
       return keys
     }
 
@@ -1404,25 +1406,63 @@ window.angular.module('apSass', []).factory('apSass', [
       return string
     }
 
-    function saveSassVar(data) {
+    var themeEndpoint = 'http://localhost:8088/api/theme/';
+
+    function getSassVarFilename(basename) {
+      return 'custom-variables-' + basename + '.scss'
+    }
+
+    function getCSSFilename(basename) {
+      return 'custom-css-' + basename + '.css';
+    }
+
+    function saveSassVar(data, $scope) {
       window.URL = window.URL || window.webkitURL
       var blob = new Blob([data], { type: 'text/css' })
       var link = document.createElement('a')
       link.href = window.URL.createObjectURL(blob)
-      link.download = 'custom-variables-' + Date.now() + '.scss'
+      link.download = getSassVarFilename($scope.fileBasename)
       link.click()
+    }
+
+    function saveSassVarToServer(data, $scope) {
+      return $http({
+        method: 'POST',
+        url: themeEndpoint + getSassVarFilename($scope.fileBasename),
+        data: data
+      });
+    }
+
+    function saveCSSToServer($scope) {
+      return $q(function (resolve, reject) {
+        sass.readFile('bootstrap.scss', function callback(bootstrapContent) {
+          sass.compile("@import 'functions'; @import 'toAddScss';" + bootstrapContent, function (result) {
+            return $http({
+              method: 'POST',
+              url: themeEndpoint + getCSSFilename($scope.fileBasename),
+              data: result.text
+            })
+              .then(function (response) {
+                resolve()
+              })
+              .catch(function (error) {
+                reject(error)
+              })
+          })
+        })
+      });
     }
 
     function saveCSS($scope) {
       sass.readFile('bootstrap.scss', function callback(bootstrapContent) {
-        sass.compile("@import 'functions'; @import 'toAddScss';" + bootstrapContent, function(
+        sass.compile("@import 'functions'; @import 'toAddScss';" + bootstrapContent, function (
           result
         ) {
           window.URL = window.URL || window.webkitURL
           var blob = new Blob([result.text], { type: 'text/css' })
           var link = document.createElement('a')
           link.href = window.URL.createObjectURL(blob)
-          link.download = 'custom-css-' + Date.now() + '.css'
+          link.download = getCSSFilename($scope.fileBasename);
           link.click()
         })
       })

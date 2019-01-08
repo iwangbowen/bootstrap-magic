@@ -12,6 +12,7 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
     show: 'variables',
     subRoute: 'html',
     showHTML: true,
+    fileBasename: '',
     showCSS: true,
     editorOptions: {
       css: {
@@ -50,6 +51,7 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
     setIsViewLoading: setIsViewLoading,
     importSassVariables: importSassVariables,
     saveCSS: saveCSS,
+    saveToServer: saveToServer,
     resetSassVariables: resetSassVariables,
     saveSassVariables: saveSassVariables,
     initTemplatesVariables: initTemplatesVariables,
@@ -67,13 +69,13 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
 
   window.scrollToCategory = scrollToCategory
 
-  $scope.$on('$routeChangeStart', function() {
+  $scope.$on('$routeChangeStart', function () {
     $scope.isViewLoading = true
   })
-  $scope.$on('$routeChangeSuccess', function() {
+  $scope.$on('$routeChangeSuccess', function () {
     $scope.isViewLoading = false
   })
-  $scope.$on('applySass', function() {
+  $scope.$on('applySass', function () {
     $scope.applySass()
   })
 
@@ -93,13 +95,13 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
   function scrollToCategory(category) {
     var data = document.querySelector('.category-' + category)
     var tmp = angular.element(data).scope()
-    tmp.$apply(function() {
-      $scope.variables.forEach(function(g) {
+    tmp.$apply(function () {
+      $scope.variables.forEach(function (g) {
         g.hidden = true
       })
       tmp.group.hidden = false
     })
-    $timeout(function() {
+    $timeout(function () {
       $('.variables-container').animate(
         {
           scrollTop: data.offsetTop
@@ -111,7 +113,7 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
 
   function toggle(group) {
     var value = !group.hidden
-    $scope.variables.forEach(function(g) {
+    $scope.variables.forEach(function (g) {
       g.hidden = true
     })
     group.hidden = value
@@ -128,7 +130,7 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
     editor.focus()
     if (!noContent) {
       editor.setValue($scope.template[selector])
-      editor.on('change', function() {
+      editor.on('change', function () {
         var data = editor.getValue()
         $scope.template[selector] = data
       })
@@ -143,23 +145,23 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
       method: 'GET',
       url: 'preview/' + template.slug + '.html'
     })
-      .then(function(templateHtml) {
+      .then(function (templateHtml) {
         $http({
           method: 'GET',
           url: 'preview/' + template.slug + '.css'
         })
-          .then(function(templateCss) {
+          .then(function (templateCss) {
             $scope.subRoute = 'preview'
             $scope.template.html = templateHtml.data
             $scope.template.css = templateCss.data
             generatePreviewHtml()
           })
-          .catch(function(error) {
+          .catch(function (error) {
             console.error(error)
             $scope.loading = false
           })
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.error(error)
         $scope.loading = false
       })
@@ -171,7 +173,7 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
 
   function callColorpicker() {
     var colorpicker = $('.colorpicker')
-    colorpicker.colorpicker().on('changeColor', function(event) {
+    colorpicker.colorpicker().on('changeColor', function (event) {
       var scope = angular.element(this).scope()
       scope.variable.value = event.color.toHex()
 
@@ -180,11 +182,11 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
       }
     })
 
-    colorpicker.colorpicker().on('show', function() {
+    colorpicker.colorpicker().on('show', function () {
       $('.blockview').removeClass('is-hidden')
     })
 
-    colorpicker.colorpicker().on('hide', function() {
+    colorpicker.colorpicker().on('hide', function () {
       $('.blockview').addClass('is-hidden')
       var color = angular.element(this).scope().variable
       if (this.dataset.color !== color.value) {
@@ -196,7 +198,7 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
     $http({
       method: 'GET',
       url: 'data/template-html.json'
-    }).then(function(response) {
+    }).then(function (response) {
       $scope.templates = response.data
     })
   }
@@ -206,8 +208,8 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
     $http({
       method: 'GET',
       url: 'data/scss-variables.json'
-    }).then(function(response) {
-      $scope.variables = response.data.map(function(d) {
+    }).then(function (response) {
+      $scope.variables = response.data.map(function (d) {
         d.hidden = true
         return d
       })
@@ -218,9 +220,9 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
       var iconsKeys = apSass.getUrls()
       var fontsKeys = apSass.getFonts()
 
-      $timeout(function() {
+      $timeout(function () {
         callColorpicker()
-        $('.sassVariable').each(function(index) {
+        $('.sassVariable').each(function (index) {
           var src
           var scope = angular.element(this).scope()
           switch (scope.variable.type) {
@@ -239,7 +241,7 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
           }
           $(this).typeahead({
             source: src,
-            updater: function(item) {
+            updater: function (item) {
               scope.variable.value = item
               return item
             }
@@ -267,16 +269,16 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
   }
 
   function getFixedHtml() {
-    return $q(function(resolve, reject) {
+    return $q(function (resolve, reject) {
       $http({
         method: 'GET',
         url: 'data/fixed-content.html'
       })
-        .then(function(response) {
+        .then(function (response) {
           $scope.fixedContent.html = response.data
           resolve()
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.error(error)
           reject(error)
         })
@@ -285,7 +287,7 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
 
   function generateFixedHtml(css, html) {
     getFixedHtml()
-      .then(function() {
+      .then(function () {
         var templateHtml = html || $scope.fixedContent.html
         var generateHtml =
           '<!doctype html><html lang="en"><head>' +
@@ -301,7 +303,7 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
 
         $scope.fixedContent.blobUrl = $sce.trustAsResourceUrl(URL.createObjectURL(blob))
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.error(error)
         $scope.loading = false
       })
@@ -347,12 +349,12 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
     $scope.loading = true
     apSass
       .applySass($scope)
-      .then(function(result) {
+      .then(function (result) {
         $scope.generatedCss = '<style>' + result + '</style>'
         $scope.loading = false
         $scope.alert = undefined
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.error(error)
         $scope.alert = error
         $scope.loading = false
@@ -381,12 +383,17 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
   }
 
   function saveSassVariables() {
-    apSass.saveSassVar(apSass.getVariablesToString($scope))
+    apSass.saveSassVar(apSass.getVariablesToString($scope), $scope)
+  }
+
+  function saveToServer() {
+    apSass.saveSassVarToServer(apSass.getVariablesToString($scope), $scope);
+    apSass.saveCSSToServer($scope);
   }
 
   function resetSassVariables() {
     initSassVariables()
-    setTimeout(function() {
+    setTimeout(function () {
       $scope.applySass()
     }, 0)
   }
@@ -411,6 +418,11 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
   //
   // INIT
   //
+
+  // register modal show event handler
+  $('#saveModal').on('show.bs.modal', function (e) {
+    $('#fileBasename').val(Date.now()).trigger('input');
+  })
 
   initSassVariables()
   initTemplatesVariables()

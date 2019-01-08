@@ -217,15 +217,19 @@
 
           <p class="pl-5 pr-5 pt-1 pb-2">Save your Bootstrap themes in CSS or just the SCSS variables.</p>
 
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" id="fileBasename" placeholder="File Basename" ng-model="fileBasename">
+            </div>
+          </form>
+
           <div class="col">
             <a class="nav-link fancy-button is-boring mr-3" ng-click="saveSassVariables()">Save SCSS variables</a>
-            <a class="nav-link fancy-button is-boring" ng-click="saveCSS()">Save CSS</a>
+            <a class="nav-link fancy-button is-boring mr-3" ng-click="saveCSS()">Save CSS</a>
             <a class="nav-link fancy-button is-boring" ng-click="saveToServer()">Save To Server</a>
           </div>
         </div>
-
         <span class="line"></span>
-
         <div class="modal-footer text-center" style="flex-direction: column;">
           <div class="row">
             <div class="col">
@@ -233,49 +237,8 @@
               <p>
                 To help us keep up the good work on Bootstrap Magic and other side projects for you!
               </p>
-              <div class="form-paypal-container">
-
-
-              <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="form-paypal">
-                  <input type="hidden" name="cmd" value="_s-xclick">
-                  <input type="hidden" name="hosted_button_id" value="W8B5H7NPKSZQE">
-        <!--           <input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne">
-         -->          <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
-                  <button href="hidden" class="fancy-button" type="submit" name="submit">5€</button>
-                  </form>
-
-
-                  <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"  class="form-paypal">
-                  <input type="hidden" name="cmd" value="_s-xclick">
-                  <input type="hidden" name="hosted_button_id" value="H3F69APZ6RV5E">
-        <!--           <input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne">
-         -->          <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
-         <button href="hidden" class="fancy-button" type="submit" name="submit">10€</button>
-                  </form>
-
-                  <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"  class="form-paypal">
-        <input type="hidden" name="cmd" value="_s-xclick">
-        <input type="hidden" name="hosted_button_id" value="HG2F95MNPQ7VA">
-        <!-- <input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne">
-         --><img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
-         <button href="hidden" class="fancy-button" type="submit" name="submit">20€</button>
-
-        </form>
-
-                  <form target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"  class="form-paypal">
-                  <input type="hidden" name="cmd" value="_s-xclick">
-                  <input type="hidden" name="hosted_button_id" value="467TSLTBQNPWA">
-                  <input type="hidden" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne">
-                  <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
-
-                  <button href="hidden" class="fancy-button" type="submit" name="submit">Other amount</button>
-                  </form>
-                </div>
-
             </div>
           </div>
-
-
         </div>
       </div>
     </div>

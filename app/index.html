@@ -20,37 +20,34 @@
 
   <script src="lib/angular/angular-loader.min.js"></script>
   <script src="./lib/script.js/2.5.8/script.min.js"></script>
+  <script src="./lib/jquery/jquery-3.2.1.min.js"></script>
   <script>
     var dev = true;
     var ext = (dev) ? '?now=' + new Date().getTime() : '';
 
     // load all of the dependencies asynchronously.
+
     $script([
-      'lib/jquery/jquery-3.2.1.min.js'
+      'lib/colorpicker/js/bootstrap-colorpicker.js',
+      'lib/bootstrap3-typeahead.min.js'
     ], function () {
       $script([
-        'lib/colorpicker/js/bootstrap-colorpicker.js',
-        'lib/bootstrap3-typeahead.min.js'
+        'lib/angular/angular.js',
+        'lib/angular/angular-route.min.js',
+        'lib/angular/angular-sanitize.min.js',
+        'lib/angular-ui-codemirror/0.3.0/ui-codemirror.min.js',
+        'js/app.js' + ext,
+        'js/services.js' + ext,
+        'js/controllers.js' + ext,
+        'js/filters.js' + ext,
+        'js/directives.js' + ext
       ], function () {
-        $script([
-          'lib/angular/angular.js',
-          'lib/angular/angular-route.min.js',
-          'lib/angular/angular-sanitize.min.js',
-          'lib/angular-ui-codemirror/0.3.0/ui-codemirror.min.js',
-          'js/app.js' + ext,
-          'js/services.js' + ext,
-          'js/controllers.js' + ext,
-          'js/filters.js' + ext,
-          'js/directives.js' + ext
-        ], function () {
-          angular.bootstrap(document, ['bootstrapVariablesEditor']);
-        });
+        angular.bootstrap(document, ['bootstrapVariablesEditor']);
       });
     });
   </script>
   <script src="./lib/sass/sass.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
-  <script src="./lib/jquery/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
     crossorigin="anonymous"></script>
   <script src="./lib/bootstrap-4.2.1-dist/js/bootstrap.min.js"></script>
