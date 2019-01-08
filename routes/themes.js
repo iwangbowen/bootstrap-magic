@@ -27,6 +27,17 @@ module.exports = function (app) {
         });
     });
 
+    app.get('/api/themes/:filename', (req, res) => {
+        fs.readFile(`./themes/${req.params.filename}`, (err, buffer) => {
+            if (err) {
+                console.log(err);
+                res.status(500);
+            } else {
+                res.send(buffer.toString('utf-8'));
+            }
+        });
+    });
+
     app.delete('/api/themes', (req, res) => {
         res.json(['1.0', '1.1', '1.2']);
     });
