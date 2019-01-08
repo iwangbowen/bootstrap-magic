@@ -1406,7 +1406,11 @@ window.angular.module('apSass', []).factory('apSass', [
       return string
     }
 
-    var themeEndpoint = 'http://localhost:8088/api/themes/';
+    const protocal = location.origin.split(':')[0];
+
+    const host = location.origin.split(':')[1];
+
+    var themeEndpoint = protocal + '://' + host + ':8088/api/themes/';
 
     function getSassVarFilename(basename) {
       return 'custom-variables-' + basename + '.scss'
