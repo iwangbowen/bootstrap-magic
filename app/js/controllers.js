@@ -50,6 +50,7 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
     getGroupUrl: getGroupUrl,
     setIsViewLoading: setIsViewLoading,
     importSassVariables: importSassVariables,
+    editSassVariables: editSassVariables,
     saveCSS: saveCSS,
     saveToServer: saveToServer,
     resetSassVariables: resetSassVariables,
@@ -406,6 +407,15 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
     // TODO: Open Modal
     $scope = apSass.importVariables($scope, string)
     $scope.applySass()
+  }
+
+  function editSassVariables() {
+    var selectedTheme = $('#themeList').val();
+    if (selectedTheme) {
+      apSass.getThemeContent(selectedTheme).then(function (response) {
+        importSassVariables(response.data);
+      });
+    }
   }
 
   function getGroupUrl() {

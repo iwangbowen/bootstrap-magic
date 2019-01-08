@@ -191,23 +191,12 @@
           <p>Edit SCSS variables saved on server.</p>
           <form>
             <select id="themeList" class="form-control" style="color: #ffffff;">
-              <option selected>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-              <option value="4">Four</option>
-              <option value="5">Five</option>
-              <option value="6">Six</option>
-              <option value="7">Seven</option>
-              <option value="8">Eight</option>
-              <option value="9">Nine</option>
             </select>
           </form>
         </div>
 
         <div class="modal-footer">
-          <button data-dismiss="modal" aria-hidden="true" class="btn btn-primary" ng-click="importSassVariables(importedVariables)"
-            ng-disabled="!importedVariables">Edit</button>
+          <button data-dismiss="modal" aria-hidden="true" class="btn btn-primary" ng-click="editSassVariables(importedVariables)">Edit</button>
         </div>
 
       </div>

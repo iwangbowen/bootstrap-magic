@@ -1149,7 +1149,8 @@ window.angular.module('apSass', []).factory('apSass', [
       applySass: applySass,
       saveSassVarToServer: saveSassVarToServer,
       saveCSSToServer, saveCSSToServer,
-      getThemeList: getThemeList
+      getThemeList: getThemeList,
+      getThemeContent: getThemeContent
     }
 
     // public function
@@ -1418,7 +1419,14 @@ window.angular.module('apSass', []).factory('apSass', [
         method: 'GET',
         url: themeEndpoint
       });
-  }
+    }
+
+    function getThemeContent(theme) {
+      return $http({
+        method: 'GET',
+        url: themeEndpoint + theme
+      });
+    }
 
     function getSassVarFilename(basename) {
       return 'custom-variables-' + basename + '.scss'
