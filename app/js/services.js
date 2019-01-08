@@ -1148,7 +1148,8 @@ window.angular.module('apSass', []).factory('apSass', [
       saveCSS: saveCSS,
       applySass: applySass,
       saveSassVarToServer: saveSassVarToServer,
-      saveCSSToServer, saveCSSToServer
+      saveCSSToServer, saveCSSToServer,
+      getThemeList: getThemeList
     }
 
     // public function
@@ -1411,6 +1412,13 @@ window.angular.module('apSass', []).factory('apSass', [
     const host = location.origin.split(':')[1];
 
     var themeEndpoint = protocal + '://' + host + ':8088/api/themes/';
+
+    function getThemeList() {
+      return $http({
+        method: 'GET',
+        url: themeEndpoint
+      });
+  }
 
     function getSassVarFilename(basename) {
       return 'custom-variables-' + basename + '.scss'

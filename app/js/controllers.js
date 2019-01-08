@@ -428,6 +428,16 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
     $('#fileBasename').val(Date.now()).trigger('input');
   })
 
+  $('#editSassVariables').on('show.bs.modal', function (e) {
+    apSass.getThemeList()
+      .then(function (response) {
+        var options = response.data.reduce(function (prev, cur) {
+          return prev + '<option value="' + cur + '">' + cur + '</option>';
+        }, '');
+        $('#themeList').html(options);
+      });
+  });
+
   initSassVariables()
   initTemplatesVariables()
   generateFixedHtml()
