@@ -387,8 +387,12 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
   }
 
   function saveToServer() {
-    apSass.saveSassVarToServer(apSass.getVariablesToString($scope), $scope);
-    apSass.saveCSSToServer($scope);
+    $q.all([
+      apSass.saveSassVarToServer(apSass.getVariablesToString($scope), $scope),
+      apSass.saveCSSToServer($scope)
+    ]).then(function () {
+      $('#saveModal').modal('hide');
+    });
   }
 
   function resetSassVariables() {

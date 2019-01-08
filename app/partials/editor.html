@@ -15,11 +15,13 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a ng-class="{ 'not-active': show !== 'variables'}" class="nav-link" ng-click="goTo('show', 'variables')">Variables editor</a>
+            <a ng-class="{ 'not-active': show !== 'variables'}" class="nav-link" ng-click="goTo('show', 'variables')">Variables
+              editor</a>
           </li>
 
           <li class="nav-item">
-            <a ng-class="{ 'not-active': show !== 'editorHtml'}" class="nav-link" ng-click="goTo('show', 'editorHtml')">HTML editor</a>
+            <a ng-class="{ 'not-active': show !== 'editorHtml'}" class="nav-link" ng-click="goTo('show', 'editorHtml')">HTML
+              editor</a>
           </li>
         </ul>
       </div>
@@ -58,8 +60,9 @@
             <div class="form-group {' ap-color-picker: variable.value': colorpicker(variable.type)}" data-color="{{ color(variable.type, variable.value) }}"
               ng-repeat="variable in group.data">
               <label for="{{variable.key}}" ng-bind="variable.key"></label>
-              <div class="input {' ap-color-picker: variable.value': colorpicker(variable.type)} input-group" data-color="{{ color(variable.type, variable.value) }}"
-                data-color-format="hex" ng-class="{'input-group color colorpicker' : colorpicker(variable.type)}" color-picker-apply="">
+              <div class="input {' ap-color-picker: variable.value': colorpicker(variable.type)} input-group"
+                data-color="{{ color(variable.type, variable.value) }}" data-color-format="hex" ng-class="{'input-group color colorpicker' : colorpicker(variable.type)}"
+                color-picker-apply="">
                 <input id="{{variable.key}}" type="text" data-ng-model="variable.value" class="sassVariable form-control {{variable.key}} {{$index}}"
                   ng-change="autoApplySass()" ng-model-options="{
                     updateOn: 'default blur',
@@ -111,7 +114,8 @@
       </ul>
       <ul class="nav main-nav">
         <li class="nav-item">
-          <a class="nav-link" ng-class="{ 'active': subRoute==='html' }" ng-click="goTo( 'subRoute', 'html')">HTML/CSS Editor</a>
+          <a class="nav-link" ng-class="{ 'active': subRoute==='html' }" ng-click="goTo( 'subRoute', 'html')">HTML/CSS
+            Editor</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" ng-class="{ 'active': subRoute==='preview' }" ng-click="goTo( 'subRoute', 'preview')">Preview</a>
@@ -165,7 +169,8 @@
 </div>
 
 <div class="protected">
-  <div class="modal fade" id="importSassVariables" tabindex="-1" role="dialog" aria-labelledby="sassVariablesLabel" aria-hidden="true">
+  <div class="modal fade" id="importSassVariables" tabindex="-1" role="dialog" aria-labelledby="sassVariablesLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
 
@@ -183,7 +188,8 @@
 
           <p>Add your SCSS variables to Bootstrap Magic.</p>
 
-          <textarea class="form-control" ng-model="importedVariables" rows="3" placeholder="Example $text-color: #242424;" style="height:400px"></textarea>
+          <textarea class="form-control" ng-model="importedVariables" rows="3" placeholder="Example $text-color: #242424;"
+            style="height:400px"></textarea>
         </div>
 
         <div class="modal-footer">
@@ -226,7 +232,7 @@
           <div class="col">
             <a class="nav-link fancy-button is-boring mr-3" ng-click="saveSassVariables()">Save SCSS variables</a>
             <a class="nav-link fancy-button is-boring mr-3" ng-click="saveCSS()">Save CSS</a>
-            <a class="nav-link fancy-button is-boring" ng-click="saveToServer()">Save To Server</a>
+            <a class="nav-link fancy-button is-boring" ng-click="saveToServer()">Save to Server</a>
           </div>
         </div>
         <span class="line"></span>
@@ -246,9 +252,9 @@
 </div>
 
 <style>
-.form-paypal-container{
-  display: flex;
-  justify-content: center;
+  .form-paypal-container {
+    display: flex;
+    justify-content: center;
     margin-bottom: 3em;
-}
+  }
 </style>
