@@ -1,5 +1,5 @@
-const theme = require('./theme');
+const themes = require('./themes');
 
 module.exports = function(app) {
-    theme(app);
+    themes(app);
 };
