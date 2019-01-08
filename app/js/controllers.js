@@ -431,9 +431,13 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
   $('#editSassVariables').on('show.bs.modal', function (e) {
     apSass.getThemeList()
       .then(function (response) {
-        var options = response.data.reduce(function (prev, cur) {
-          return prev + '<option value="' + cur + '">' + cur + '</option>';
-        }, '');
+        var options = response.data
+          .filter(function (theme) {
+            return theme.endsWith('.scss');
+          })
+          .reduce(function (prev, cur) {
+            return prev + '<option value="' + cur + '">' + cur + '</option>';
+          }, '');
         $('#themeList').html(options);
       });
   });

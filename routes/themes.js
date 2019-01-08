@@ -22,7 +22,7 @@ module.exports = function (app) {
                 console.error(err);
                 res.status(500);
             } else {
-                res.send(files.filter(filter => filter.endsWith('.css')));
+                res.send(files);
             }
         });
     });
