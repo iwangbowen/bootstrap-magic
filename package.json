@@ -22,6 +22,9 @@
     "url": "https://github.com/pikock/bootstrap-magic.git"
   },
   "scripts": {
+    "start": "pm2 start server.js",
+    "stop": "pm2 stop server",
+    "restart": "pm2 restart server",
     "prod": "npm run build && ./node_modules/.bin/serve ./dist --single",
     "dev": "./node_modules/serve/bin/serve.js",
     "clean": "rimraf dist",
