@@ -1,5 +1,11 @@
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const path = require('path');
+const util = require('util');
+const promisifiedUnlink = util.promisify(fs.unlink);
+
+path.parse(filename).name; // hello
+path.parse(filename).ext;  // .html
 
 module.exports = function (app) {
     app.post('/api/themes/:filename', bodyParser.text({ type: '*/*', limit: '50mb' }), (req, res) => {
@@ -38,7 +44,17 @@ module.exports = function (app) {
         });
     });
 
-    app.delete('/api/themes', (req, res) => {
-        res.json(['1.0', '1.1', '1.2']);
+    app.delete('/api/themes/:filename', (req, res) => {
+        const scssFilename = req.params.filename;
+        const name = path.parse(scssFilename).name;
+        const suffix = name.split('-')[2];
+        const cssFilename = `custom-css-${suffix}.css`;
+        Promise.all([
+            promisifiedUnlink(`./themes/${scssFilename}`),
+            promisifiedUnlink(`./themes/${cssFilename}`)])
+            .then(() => {
+                res.send();
+            })
+            .catch(err => res.status(500).send());
     });
 };

@@ -1150,7 +1150,8 @@ window.angular.module('apSass', []).factory('apSass', [
       saveSassVarToServer: saveSassVarToServer,
       saveCSSToServer, saveCSSToServer,
       getThemeList: getThemeList,
-      getThemeContent: getThemeContent
+      getThemeContent: getThemeContent,
+      deleteTheme: deleteTheme
     }
 
     // public function
@@ -1424,6 +1425,13 @@ window.angular.module('apSass', []).factory('apSass', [
     function getThemeContent(theme) {
       return $http({
         method: 'GET',
+        url: themeEndpoint + theme
+      });
+    }
+
+    function deleteTheme(theme) {
+      return $http({
+        method: 'DELETE',
         url: themeEndpoint + theme
       });
     }

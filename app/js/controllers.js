@@ -51,6 +51,7 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
     setIsViewLoading: setIsViewLoading,
     importSassVariables: importSassVariables,
     editSassVariables: editSassVariables,
+    deleteSassVariables: deleteSassVariables,
     saveCSS: saveCSS,
     saveToServer: saveToServer,
     resetSassVariables: resetSassVariables,
@@ -414,6 +415,15 @@ function SassCtrl($scope, $http, apSass, $timeout, $sce, $q) {
     if (selectedTheme) {
       apSass.getThemeContent(selectedTheme).then(function (response) {
         importSassVariables(response.data);
+      });
+    }
+  }
+
+  function deleteSassVariables() {
+    var selectedTheme = $('#themeList').val();
+    if (selectedTheme) {
+      apSass.deleteTheme(selectedTheme).then(function () {
+        $('#themeList').find('option:selected').remove();
       });
     }
   }
