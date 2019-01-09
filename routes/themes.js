@@ -4,9 +4,6 @@ const path = require('path');
 const util = require('util');
 const promisifiedUnlink = util.promisify(fs.unlink);
 
-path.parse(filename).name; // hello
-path.parse(filename).ext;  // .html
-
 module.exports = function (app) {
     app.post('/api/themes/:filename', bodyParser.text({ type: '*/*', limit: '50mb' }), (req, res) => {
         fs.writeFile(`./themes/${req.params.filename}`, req.body, (err) => {
