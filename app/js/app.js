@@ -9,7 +9,7 @@ window.angular
     'ngSanitize',
     'ui.codemirror'
   ])
-  .config(function($routeProvider, $locationProvider) {
+  .config(function ($routeProvider, $locationProvider) {
     $routeProvider.when('/editor', {
       templateUrl: 'partials/editor.html',
       controller: window.SassCtrl
